@@ -1,0 +1,11 @@
+version: '2'
+services:
+  u16vnc:
+    image: 008884162899.dkr.ecr.us-west-2.amazonaws.com/alt_bier/u16vnc:latest
+    privileged: true
+    cpu_shares: 256
+    mem_limit: 536870912
+    ports:
+     - "522:22/tcp"
+     - "5901:5901/tcp"
+     - "6901:6901/tcp"

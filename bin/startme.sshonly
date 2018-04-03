@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+### Exit script on error
+set -e
+
+# Start SSHD server
+/usr/sbin/sshd -D &
+
+while true; do echo text-to-keep-container-running-for-testing; sleep 2; done
