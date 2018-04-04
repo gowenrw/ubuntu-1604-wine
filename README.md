@@ -8,6 +8,7 @@ Docker Container Image of Ubuntu 16.04 with SSHD, XFCE, VNC, as well as WINE and
 # Basic Steps:
 
 * Modify Docker file to meet your needs and use your labels
+    * You can choose weather to build this image from scratch or as an addon to the u16vnc image if you had already built that.
 * Modify Makefile to meet your needs
 * make build
 

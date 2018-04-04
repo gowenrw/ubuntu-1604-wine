@@ -38,14 +38,18 @@ apt-get install -y wine-stable winehq-stable
 # with a GUI launch that allows other configuration as well... instead we will:
 # Install gecko and mono via wget and msiexec
 echo "# Install gecko and mono via wget and msiexec"
-echo "**** wget -nv http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86.msi"
-wget -nv http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86.msi
-echo "**** msiexec /i wine_gecko-2.47-x86.msi /q /l* wine_gecko-2.47-x86.log"
-msiexec /i wine_gecko-2.47-x86.msi /q /l* wine_gecko-2.47-x86.log
+mkdir $HOME/.cache/wine
+cd $HOME/.cache/wine
 echo "**** wget -nv http://dl.winehq.org/wine/wine-mono/4.7.1/wine-mono-4.7.1.msi"
 wget -nv http://dl.winehq.org/wine/wine-mono/4.7.1/wine-mono-4.7.1.msi
-echo "**** msiexec /i wine-mono-4.7.1.msi /q /l* wine-mono-4.7.1.log"
-msiexec /i wine-mono-4.7.1.msi /q /l* wine-mono-4.7.1.log
+echo "**** wget -nv http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86.msi"
+wget -nv http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86.msi
+echo "**** WINEARCH=win32 msiexec /i wine-mono-4.7.1.msi /q /l* wine-mono-4.7.1.log"
+WINEARCH=win32 msiexec /i wine-mono-4.7.1.msi /q /l* wine-mono-4.7.1.log
+echo "**** WINEARCH=win32 msiexec /i wine_gecko-2.47-x86.msi /q /l* wine_gecko-2.47-x86.log"
+WINEARCH=win32 msiexec /i wine_gecko-2.47-x86.msi /q /l* wine_gecko-2.47-x86.log
+cd $HOME
+
 
 # Install dotnet tools with winetricks
 echo "# Install dotnet tools with winetricks"
