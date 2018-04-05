@@ -38,7 +38,7 @@ apt-get install -y wine-stable winehq-stable
 # with a GUI launch that allows other configuration as well... instead we will:
 # Install gecko and mono via wget and msiexec
 echo "# Install gecko and mono via wget and msiexec"
-mkdir $HOME/.cache/wine
+mkdir -p $HOME/.cache/wine
 cd $HOME/.cache/wine
 echo "**** wget -nv http://dl.winehq.org/wine/wine-mono/4.7.1/wine-mono-4.7.1.msi"
 wget -nv http://dl.winehq.org/wine/wine-mono/4.7.1/wine-mono-4.7.1.msi
