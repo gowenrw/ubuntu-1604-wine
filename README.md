@@ -33,20 +33,30 @@ ecs-cli push alt_bier/u16winevnc
         * As shown below it will opens all 3 ports and implement hard limits of 0.25 vCPU and 512M RAM.
         * 1024 cpu_shares = 1 vCPU (256 = 0.25 vCPU)
         * mem_limit is an integer indicating bytes in binary (1G=2^30=1073741824, 512M=2^29=536870912)
-    * Note that privileged mode is required to allow services to modify the network settings since ecs does not support NET_ADMIN
+    * Note that privileged mode is only required if you want to use network tools since ecs does not support NET_ADMIN
+    * The volumes line mounts as AWS EFS (NFS) file system to allow for external file storage
+        * This requires you to have an AWS EFS share created and configured on your AWS ECS instances
 
 ```yaml
 version: '2'
 services:
   u16winevnc:
-    image: 008884162899.dkr.ecr.us-west-2.amazonaws.com/alt_bier/u16winevnc:latest
+    # Image refers to the AWS ECS repository image to be used, change to yours
+    image: 000000000000.dkr.ecr.us-west-2.amazonaws.com/alt_bier/u16winevnc:latest
+    # Privileged mode is only required if you want to use network tools
     privileged: true
+    # 1024 cpu_shares = 1 vCPU (256 = 0.25 vCPU)
     cpu_shares: 256
+    # mem_limit is an integer indicating bytes in binary (1G=2^30=1073741824, 512M=2^29=536870912)
     mem_limit: 536870912
+    # Ports to be exposed if format host:container
     ports:
      - "522:22/tcp"
      - "5901:5901/tcp"
      - "6901:6901/tcp"
+    # This mounts an AWS EFS file system
+    volumes:
+     - "/efs:/efs"
 ```
 
 
@@ -62,5 +72,14 @@ ecs-cli compose --file u16winevnc.yml --project-name u16winevnc up
     * https://docs.docker.com/engine/examples/running_ssh_service/#run-a-test_sshd-container
 * Example on setting up VNC in a container
     * https://github.com/ConSol/docker-headless-vnc-container
+* How to install and configure WINE
+    * https://wiki.winehq.org/Ubuntu
+* AWS Elastic Container Service (ECS)
+    * https://aws.amazon.com/ecs/
+* Manage Amazon ECS tasks with docker-compose-style commands on an ECS cluster
+    * https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cmd-ecs-cli-compose.html
+* Using AWS EFS Filesystems with AWS ECS
+    * https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_efs.html
+
 
 

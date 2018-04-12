@@ -1,11 +1,19 @@
 version: '2'
 services:
-  u16vnc:
-    image: 008884162899.dkr.ecr.us-west-2.amazonaws.com/alt_bier/u16vnc:latest
+  u16winevnc:
+    # Image refers to the AWS ECS repository image to be used, change to yours
+    image: 008884162899.dkr.ecr.us-west-2.amazonaws.com/alt_bier/u16winevnc:latest
+    # Privileged mode is only required if you want to use network tools
     privileged: true
+    # 1024 cpu_shares = 1 vCPU (256 = 0.25 vCPU)
     cpu_shares: 256
+    # mem_limit is an integer indicating bytes in binary (1G=2^30=1073741824, 512M=2^29=536870912)
     mem_limit: 536870912
+    # Ports to be exposed if format host:container
     ports:
      - "522:22/tcp"
      - "5901:5901/tcp"
      - "6901:6901/tcp"
+    # This mounts an AWS EFS file system
+    volumes:
+     - "/efs:/efs"
