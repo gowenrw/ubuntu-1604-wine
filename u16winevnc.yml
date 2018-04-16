@@ -5,10 +5,10 @@ services:
     image: 008884162899.dkr.ecr.us-west-2.amazonaws.com/alt_bier/u16winevnc:latest
     # Privileged mode is only required if you want to use network tools
     privileged: true
-    # 1024 cpu_shares = 1 vCPU (256 = 0.25 vCPU)
-    cpu_shares: 256
+    # 1024 cpu_shares = 1 vCPU (256 = 0.25 vCPU, 512 = 0.5 vCPU)
+    cpu_shares: 512
     # mem_limit is an integer indicating bytes in binary (1G=2^30=1073741824, 512M=2^29=536870912)
-    mem_limit: 536870912
+    mem_limit: 1073741824
     # Ports to be exposed if format host:container
     ports:
      - "522:22/tcp"
